@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--weights', type=str, default='./checkpoints/model.pt', help='Weights path')
-    parser.add_argument('--dataset_path', type=str, default='./train1/train', help='Dataset to run testing on')
+    parser.add_argument('--dataset_path', type=str, default='./train1/train', help='Dataset to run inference on, or a single file to infer')
 
     opt = parser.parse_args()
 

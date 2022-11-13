@@ -12,7 +12,11 @@ class AudioDataset(Dataset):
         self.dataset_path = Path(dataset_path)
         self.image_size = image_size
 
-        self.files = list(self.dataset_path.rglob('*.npy'))
+        # Single file
+        if (self.dataset_path.is_file()):
+            self.files = [self.dataset_path]
+        else:
+            self.files = list(self.dataset_path.rglob('*.npy'))
 
         self.computed_mean = 0.436
         self.computed_std = 0.176
