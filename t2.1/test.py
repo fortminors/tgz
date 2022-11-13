@@ -21,9 +21,6 @@ if __name__ == '__main__':
     test_dataset_path = opt.dataset_path
     model_path = opt.weights
 
-    # test_dataset_path = #r'C:\Users\fortm\Desktop\goznak\val\val'
-    # model_path = #'checkpoints/model.pt'
-
     device = torch.device('cuda:0')
 
     model = models.resnet18()
