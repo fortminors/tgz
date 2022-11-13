@@ -55,15 +55,20 @@ class AudioDataset(Dataset):
 
         return out
 
+    def LoadImage(self, path):
+        spectogram = np.load(path)
+        image = self.SpectogramToImage(spectogram)
+        image = self.transform(image)
+        image = self.PadOrCropImage(image)
+
+        return image.float()
+
     def __getitem__(self, idx):
         file_path = self.files[idx]
         label = 0 if file_path.parts[-3] == 'clean' else 1
 
-        spectogram = np.load(file_path)
-        image = self.SpectogramToImage(spectogram)
-        image = self.transform(image)
-        image = self.PadOrCropImage(image)
+        image = self.LoadImage(file_path)
         
         label = torch.tensor(label)
 
-        return image.float(), label
+        return image, label
