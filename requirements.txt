@@ -1,0 +1,14 @@
+numpy
+librosa
+matplotlib
+opencv-python
+tqdm
+wandb
+
+--extra-index-url https://download.pytorch.org/whl/cu117
+
+torch 
+torchvision 
+torchaudio
+torchinfo
+torchmetrics
