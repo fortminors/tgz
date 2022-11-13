@@ -17,7 +17,7 @@ from SpectrogramDenoiser import SpectrogramDenoiser
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--weights', type=str, default='./checkpoints/model.pt', help='Weights path')
-parser.add_argument('--dataset_path', type=str, default='./train1/train', help='Dataset to run testing on')
+parser.add_argument('--dataset_path', type=str, default='./train1/train', help='Dataset to run inference on, or a single file to infer')
 
 opt = parser.parse_args()
 
@@ -57,6 +57,8 @@ with torch.no_grad():
 
         out = model(noisy_image)
 
+        mse.update(out, clean_image)
+
         if (visualize):
             out_image = ((out[0] * computed_std + computed_mean) * 255.0).permute(2,1,0).detach().cpu().numpy().astype(np.uint8)
             noisy = ((noisy_image[0] * computed_std + computed_mean) * 255.0).permute(2,1,0).detach().cpu().numpy().astype(np.uint8)
@@ -65,8 +67,6 @@ with torch.no_grad():
             vis = np.vstack((out_image, noisy, clean))
 
             cv2.imwrite(f'results/result_{i}.jpg', vis)
-
-        mse.update(out, clean_image)
 
 mse_result = mse.compute().item()
 
