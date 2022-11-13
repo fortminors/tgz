@@ -1,4 +1,6 @@
 
 *.pt
 *.pyc
+*.jpg
 t2.1/wandb
+t2.2/wandb
